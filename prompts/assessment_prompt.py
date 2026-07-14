@@ -262,27 +262,14 @@ Do not include this section for theory questions.
 SOLUTION:
 
 For numerical questions:
-
 Write the complete solution step by step.
-
-For numerical questions:
 
 Use EXACTLY this format.
 
 Step 1:
 Explain the objective.
-
-Calculation:
-
-Formula
-
-=
-
-Substitution
-
-=
-
-Answer
+Calculation: Formula
+Substitution = Answer
 
 Step 2:
 Repeat if required.
@@ -414,7 +401,8 @@ Never compress mathematical calculations.
 
 Never remove spaces around operators.
 
-Always place '=' on its own calculation line.
+Write complete equations on a single line (e.g., 500000 - 200000 = 300000).
+Never place '=' or '-' on a line by itself.
 
 Never join multiple calculations into one paragraph.
 

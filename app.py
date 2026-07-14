@@ -15,6 +15,7 @@ st.set_page_config(
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 # =============================================================================
@@ -37,13 +38,11 @@ st.subheader(
     "AI-Powered Assessment Generator for Punjab Lecturer Recruitment 2026 (Commerce)"
 )
 
-st.markdown(
-    """
+st.markdown("""
 Generate high-quality Commerce assessments using Google Gemini,
 attempt the assessment, receive instant scoring,
 and review detailed explanations.
-"""
-)
+""")
 
 st.divider()
 
@@ -83,8 +82,7 @@ st.divider()
 
 st.header("Workflow")
 
-st.markdown(
-    """
+st.markdown("""
 1. **Create Assessment**
    - Choose subject, chapter and topic.
    - Configure question blueprint.
@@ -103,8 +101,7 @@ st.markdown(
    - Read explanations.
    - Analyse mistakes.
    - Improve performance.
-"""
-)
+""")
 
 st.divider()
 
@@ -166,6 +163,4 @@ st.divider()
 # Footer
 # =============================================================================
 
-st.caption(
-    "EduAssess AI • MVP Launch • Google Gemini • Streamlit • Pydantic"
-)
+st.caption("EduAssess AI • MVP Launch • Google Gemini • Streamlit • Pydantic")
