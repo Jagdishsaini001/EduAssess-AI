@@ -10,7 +10,7 @@ Module  : Assessment Prompt Builder
 from models.assessment import Assessment
 
 
-def build_assessment_prompt(assessment: Assessment) -> str:
+def build_assessment_prompt(assessment: Assessment, reference_text: str = "") -> str:
     """
     Build the prompt sent to Gemini.
     Gemini must return JSON matching the AssessmentOutput model.
@@ -21,6 +21,20 @@ def build_assessment_prompt(assessment: Assessment) -> str:
         for question_type, count in assessment.question_blueprint.items()
         if count > 0
     )
+
+    # Optional block that strictly enforces the use of uploaded materials
+    reference_section = ""
+    if reference_text.strip():
+        reference_section = f"""
+==============================================================================
+REFERENCE MATERIAL
+==============================================================================
+
+Please strictly use the following course material to generate the assessment questions.
+Ensure all concepts, terminologies, and factual information align entirely with this text:
+
+{reference_text}
+"""
 
     prompt = f"""
 You are an expert Commerce Professor, competitive examination paper setter,
@@ -76,7 +90,7 @@ AI Behaviour:
 
 Additional Instructions:
 {assessment.additional_instructions}
-
+{reference_section}
 ==============================================================================
 QUESTION BLUEPRINT
 ==============================================================================

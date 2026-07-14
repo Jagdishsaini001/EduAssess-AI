@@ -168,7 +168,64 @@ knowledge = st.radio(
     ],
     index=2,
 )
+import os
+import PyPDF2
 
+# ---------------------------------------------------------
+# 1. SILENTLY LOAD BACKGROUND MATERIALS
+# ---------------------------------------------------------
+reference_text = ""
+vault_path = "course_materials"
+
+# Check if the folder exists, then read every file inside it
+if os.path.exists(vault_path):
+    for filename in os.listdir(vault_path):
+        filepath = os.path.join(vault_path, filename)
+
+        # Read text files
+        if filename.endswith(".txt"):
+            with open(filepath, "r", encoding="utf-8") as f:
+                reference_text += f"\n--- Source: {filename} ---\n" + f.read() + "\n"
+
+        # Read PDF files
+        elif filename.endswith(".pdf"):
+            with open(filepath, "rb") as f:
+                pdf_reader = PyPDF2.PdfReader(f)
+                reference_text += f"\n--- Source: {filename} ---\n"
+                for page in pdf_reader.pages:
+                    extracted = page.extract_text()
+                    if extracted:
+                        reference_text += extracted + "\n"
+
+# ---------------------------------------------------------
+# 2. OPTIONAL: MANUAL UPLOADER (For Extra Files)
+# ---------------------------------------------------------
+uploaded_file = st.file_uploader(
+    "📚 Optional: Upload additional course materials (TXT or PDF):", type=["txt", "pdf"]
+)
+
+if uploaded_file is not None:
+    if uploaded_file.name.endswith(".txt"):
+        reference_text += f"\n--- Source: {uploaded_file.name} ---\n"
+        reference_text += uploaded_file.read().decode("utf-8") + "\n"
+        st.success(f"Successfully added extra text file: {uploaded_file.name}")
+
+    elif uploaded_file.name.endswith(".pdf"):
+        pdf_reader = PyPDF2.PdfReader(uploaded_file)
+        reference_text += f"\n--- Source: {uploaded_file.name} ---\n"
+        for page in pdf_reader.pages:
+            extracted = page.extract_text()
+            if extracted:
+                reference_text += extracted + "\n"
+        st.success(f"Successfully added extra PDF: {uploaded_file.name}")
+    # If it is a PDF, we need a library to read it
+    elif uploaded_file.name.endswith(".pdf"):
+        import PyPDF2
+
+        pdf_reader = PyPDF2.PdfReader(uploaded_file)
+        for page in pdf_reader.pages:
+            reference_text += page.extract_text() + "\n"
+        st.success(f"Successfully loaded PDF: {uploaded_file.name}")
 with st.expander("Advanced Settings"):
 
     bloom = st.selectbox(
