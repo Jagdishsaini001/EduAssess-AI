@@ -24,7 +24,10 @@ st.set_page_config(
 )
 
 st.title("📝 Create Assessment")
-
+passcode = st.text_input("Enter Access Code:", type="password")
+if passcode != st.secrets["APP_PASSCODE"]:
+    st.warning("Please enter the correct access code to unlock the AI generator.")
+    st.stop()  # This halts the rest of the page from loading
 # =============================================================================
 # Assessment Information
 # =============================================================================
